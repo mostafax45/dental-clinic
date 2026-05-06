@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>عيادة الابتسامة الذهبية - طب الأسنان</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">
+    <div class="logo-icon">🦷</div>
+    الابتسامة الذهبية
+  </div>
+  <div class="nav-links">
+    <button class="active" onclick="showPage('home',this)">الرئيسية</button>
+    <button onclick="showPage('doctors',this)">الدكاترة</button>
+    <button onclick="showPage('booking',this)">احجز موعد</button>
+    <button onclick="showPage('my-bookings',this)" id="my-bookings-nav" style="display:none">حجوزاتي</button>
+  </div>
+  <div class="nav-user" id="nav-user-area">
+    <button class="btn btn-outline" onclick="openAuth('login')">تسجيل دخول</button>
+    <button class="btn btn-primary" onclick="openAuth('register')">إنشاء حساب</button>
+  </div>
+  <div class="nav-user" id="nav-logged-area" style="display:none">
+    <span style="font-size:14px;color:var(--muted)" id="nav-greeting"></span>
+    <button class="btn btn-outline" onclick="logout()">خروج</button>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div style="font-size:18px;font-weight:700;opacity:.7;margin-bottom:10px">عيادة الابتسامة الذهبية 🦷</div>
+    <h1>ابتسامتك، أولويتنا</h1>
+    <p>فريق من أفضل أطباء الأسنان لرعاية صحة فمك وأسنانك</p>
+    <div class="hero-btns">
+      <button class="btn-white" onclick="showPage('booking',document.querySelectorAll('.nav-links button')[2])">احجز موعد الآن</button>
+      <button class="btn-transparent" onclick="showPage('doctors',document.querySelectorAll('.nav-links button')[1])">تعرف على دكاترتنا</button>
+    </div>
+  </div>
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-num">5</div><div class="stat-label">طبيب متخصص</div></div>
+    <div class="stat"><div class="stat-num">+2000</div><div class="stat-label">مريض راضي</div></div>
+    <div class="stat"><div class="stat-num">15+</div><div class="stat-label">سنة خبرة</div></div>
+    <div class="stat"><div class="stat-num">98%</div><div class="stat-label">نسبة رضا المرضى</div></div>
+  </div>
+  <div class="services-section">
+    <div class="section-title">خدماتنا</div>
+    <div class="section-sub">نقدم أحدث تقنيات طب الأسنان لضمان أفضل رعاية لك</div>
+    <div class="services-grid">
+      <div class="service-card"><div class="svc-icon">🦷</div><div class="svc-title">علاج الأعصاب</div><div class="svc-desc">علاج قنوات الجذر بأحدث التقنيات وبأقل ألم ممكن</div></div>
+      <div class="service-card"><div class="svc-icon">✨</div><div class="svc-title">تبييض الأسنان</div><div class="svc-desc">احصل على ابتسامة بيضاء مشرقة في جلسة واحدة</div></div>
+      <div class="service-card"><div class="svc-icon">🦴</div><div class="svc-title">زراعة الأسنان</div><div class="svc-desc">زرع الأسنان الدائم بتقنية ثلاثية الأبعاد</div></div>
+      <div class="service-card"><div class="svc-icon">😁</div><div class="svc-title">تقويم الأسنان</div><div class="svc-desc">تقويم شفاف وتقليدي لاحتياجات مختلفة</div></div>
+      <div class="service-card"><div class="svc-icon">🔬</div><div class="svc-title">فحص دوري شامل</div><div class="svc-desc">فحص كامل للفم والأسنان واللثة والكشف المبكر</div></div>
+      <div class="service-card"><div class="svc-icon">👑</div><div class="svc-title">تركيب التيجان</div><div class="svc-desc">تيجان زيركون وبورسلين عالية الجودة</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- DOCTORS PAGE -->
+<div class="page" id="page-doctors">
+  <div class="page-header">
+    <h1>أطباؤنا المتخصصون</h1>
+    <p>فريق من أفضل الكفاءات في طب الأسنان</p>
+  </div>
+  <div class="doctors-grid" id="doctors-grid"></div>
+</div>
+
+<!-- DOCTOR PROFILE PAGE -->
+<div class="page" id="page-doc-profile">
+  <div class="profile-hero" id="profile-hero"></div>
+  <div class="profile-tabs">
+    <button class="tab-btn active" onclick="switchTab('experience',this)">الخبرات والشهادات</button>
+    <button class="tab-btn" onclick="switchTab('reviews',this)">التقييمات</button>
+    <button class="tab-btn" onclick="switchTab('schedule',this)">مواعيد متاحة</button>
+  </div>
+  <div class="tab-content active" id="tab-experience"></div>
+  <div class="tab-content" id="tab-reviews"></div>
+  <div class="tab-content" id="tab-schedule"></div>
+</div>
+
+<!-- BOOKING PAGE -->
+<div class="page" id="page-booking">
+  <div class="page-header">
+    <h1>احجز موعدك</h1>
+    <p>اختر الدكتور والوقت المناسب لك</p>
+  </div>
+  <div class="booking-layout">
+    <div class="booking-form-section">
+      <div class="step-indicator">
+        <div class="step active" id="step1"><div class="step-num">1</div><div class="step-text">بيانات الحجز</div></div>
+        <div class="step-line" id="line1"></div>
+        <div class="step" id="step2"><div class="step-num">2</div><div class="step-text">تأكيد الحجز</div></div>
+      </div>
+      <div id="booking-step1">
+        <div class="form-group">
+          <label class="form-label">اختر الطبيب</label>
+          <select class="form-select" id="booking-doc-select" onchange="updateBookingPreview()">
+            <option value="">-- اختر الطبيب --</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">نوع الخدمة</label>
+          <select class="form-select" id="booking-service">
+            <option value="">-- اختر الخدمة --</option>
+            <option>فحص وتنظيف أسنان</option>
+            <option>علاج عصب</option>
+            <option>تبييض الأسنان</option>
+            <option>زراعة أسنان</option>
+            <option>تقويم أسنان</option>
+            <option>حشوات وترميمات</option>
+            <option>تركيب تيجان</option>
+            <option>خلع أسنان</option>
+            <option>استشارة طبية</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">التاريخ</label>
+            <input type="date" class="form-input" id="booking-date" onchange="updateTimeSlots()" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">الوقت المتاح</label>
+            <div class="time-slots" id="time-slots-container">
+              <div style="color:var(--muted);font-size:13px;grid-column:1/-1">اختر تاريخاً أولاً</div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary" style="width:100%;padding:13px;font-size:16px;border-radius:12px" onclick="proceedBooking()">متابعة الحجز ←</button>
+      </div>
+      <div id="booking-step2" style="display:none">
+        <div style="background:var(--bg);border-radius:14px;padding:24px;margin-bottom:24px" id="booking-summary"></div>
+        <div class="form-group">
+          <label class="form-label">ملاحظات للطبيب (اختياري)</label>
+          <textarea class="form-input" id="booking-notes" rows="3" placeholder="صف الأعراض أو أي ملاحظات مهمة..."></textarea>
+        </div>
+        <div style="display:flex;gap:12px">
+          <button class="btn btn-outline" style="flex:1;padding:12px" onclick="backToStep1()">← رجوع</button>
+          <button class="btn btn-primary" style="flex:2;padding:12px;font-size:15px" onclick="confirmBooking()">✓ تأكيد الحجز</button>
+        </div>
+      </div>
+    </div>
+    <div class="booking-sidebar">
+      <div class="sidebar-card" id="selected-doc-card" style="display:none">
+        <div style="font-size:12px;color:var(--muted);font-weight:700;margin-bottom:12px">الطبيب المختار</div>
+        <div style="display:flex;align-items:center;gap:12px" id="sidebar-doc-info"></div>
+      </div>
+      <div class="sidebar-card">
+        <div style="font-size:13px;font-weight:700;margin-bottom:12px">ساعات العمل</div>
+        <div style="font-size:13px;color:var(--muted);line-height:2.2">
+          <div>الأحد - الخميس: <strong style="color:var(--text)">٩ص - ٩م</strong></div>
+          <div>الجمعة: <strong style="color:var(--text)">٢م - ٩م</strong></div>
+          <div>السبت: <strong style="color:var(--text)">٩ص - ٥م</strong></div>
+        </div>
+      </div>
+      <div class="sidebar-card" style="background:var(--accent);border-color:var(--primary-light)">
+        <div style="font-size:13px;font-weight:700;color:var(--primary);margin-bottom:8px">📞 للتواصل المباشر</div>
+        <div style="font-size:14px;font-weight:700">01234567890</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px">يومياً من ٩ص حتى ٩م</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MY BOOKINGS PAGE -->
+<div class="page" id="page-my-bookings">
+  <div class="page-header"><h1>حجوزاتي</h1><p>عرض وإدارة جميع مواعيدك</p></div>
+  <div class="bookings-list" id="bookings-list"></div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="auth-modal">
+  <div class="modal">
+    <div style="text-align:center;font-size:32px;margin-bottom:12px">🦷</div>
+    <h2>مرحباً بك</h2>
+    <div class="modal-sub">سجل دخولك لإتمام الحجز ومتابعة مواعيدك</div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="login-tab" onclick="switchAuth('login')">تسجيل الدخول</button>
+      <button class="auth-tab" id="register-tab" onclick="switchAuth('register')">حساب جديد</button>
+    </div>
+    <button class="google-btn" onclick="loginWithGoogle()">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      متابعة بـ Google
+    </button>
+    <div class="divider">أو بالبريد الإلكتروني</div>
+    <div id="login-form">
+      <div class="form-group"><label class="form-label">البريد الإلكتروني</label><input type="email" class="form-input" id="login-email" placeholder="example@gmail.com" /></div>
+      <div class="form-group"><label class="form-label">رقم الهاتف</label><input type="tel" class="form-input" id="login-phone" placeholder="01xxxxxxxxx" /></div>
+      <button class="btn btn-primary" style="width:100%;padding:13px;font-size:15px;border-radius:12px" onclick="doLogin()">تسجيل الدخول</button>
+    </div>
+    <div id="register-form" style="display:none">
+      <div class="form-group"><label class="form-label">الاسم الكامل</label><input type="text" class="form-input" id="reg-name" placeholder="اسمك الكامل" /></div>
+      <div class="form-group"><label class="form-label">البريد الإلكتروني</label><input type="email" class="form-input" id="reg-email" placeholder="example@gmail.com" /></div>
+      <div class="form-group"><label class="form-label">رقم الهاتف</label><input type="tel" class="form-input" id="reg-phone" placeholder="01xxxxxxxxx" /></div>
+      <button class="btn btn-primary" style="width:100%;padding:13px;font-size:15px;border-radius:12px" onclick="doRegister()">إنشاء الحساب</button>
+    </div>
+    <button onclick="closeModal()" style="width:100%;margin-top:12px;padding:10px;background:none;border:none;color:var(--muted);font-family:Cairo,sans-serif;font-size:14px;cursor:pointer">إلغاء</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+ <script src="script.js"></script>
+</body>
+</html>
